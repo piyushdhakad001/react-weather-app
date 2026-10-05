@@ -31,16 +31,22 @@ function App() {
     getweather();
   }
 
-    useEffect(() => {
-    const savedWeather = localStorage.getItem("data")
+  useEffect(() => {
+  try {
+    const savedWeather = JSON.parse(localStorage.getItem("data"));
 
-    if(savedWeather){
-      setWeatherData(JSON.parse(savedWeather));
-    } else {
-      getweather();
+    if (savedWeather?.weather?.[0] && savedWeather?.main) {
+      setWeatherData(savedWeather);
+      setUserCity(savedWeather.name);
+      return;
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  } catch (error) {
+    localStorage.removeItem("data");
+  }
+
+  getweather();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+}, []);
 
 
   return (
