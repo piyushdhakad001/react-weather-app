@@ -1,70 +1,69 @@
-# Getting Started with Create React App
+# Weather App 🌤️
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A weather app built with React and the OpenWeatherMap API. Search any city to see its current weather, temperature, humidity, and wind speed.
 
-## Available Scripts
+## Live Demo
+🔗 [View Live Application](https://react-weather-app-xbtv.vercel.app/)
 
-In the project directory, you can run:
+## Screenshot
 
-### `npm start`
+![Weather App Preview](screenshot.png)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Features
+- **City Search:** Search any city by pressing `Enter` or clicking the Search button.
+- **Live Weather Data:** Shows the weather condition, temperature in °C, humidity, and wind speed in km/h.
+- **Error Handling:** Shows an alert for cities that aren't found and for network failures.
+- **Persistent LocalStorage:** Saves your last searched city and restores it, with the search box in sync, when you reopen the app.
+- **Safe Data Restore:** Checks saved data before using it, so corrupted or old data can't crash the app.
+- **State Management:** Built with React functional components and hooks (`useState`, `useEffect`).
+- **Responsive Design:** Works on desktop and mobile screens.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Tech Stack
+- **React** (Create React App)
+- **CSS3** (Flexbox, media queries)
+- **JavaScript (ES6+)** (async/await, Fetch API, React Hooks, localStorage)
+- **OpenWeatherMap API**
+- **Vercel** (deployment)
 
-### `npm test`
+## Getting Started Locally
+1. Clone the repository:
+```bash
+   git clone https://github.com/piyushdhakad001/react-weather-app.git
+   cd react-weather-app
+```
+2. Install dependencies:
+```bash
+   npm install
+```
+3. Get a free API key from [OpenWeatherMap](https://openweathermap.org/api). New keys can take a while to activate.
+4. Create a `.env` file in the project root (next to `package.json`) with:
+```
+   REACT_APP_WEATHER_API_KEY=your_api_key_here
+```
+5. Start the app:
+```bash
+   npm start
+```
+6. Open `http://localhost:3000`.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## What I Learned
+- Fetching API data with async/await and handling errors with `try/catch`
+- Using environment variables in React to keep API keys out of the source code
+- Restoring saved state with `useEffect` and validating it before use
+- Encoding user input safely in URLs with `encodeURIComponent`
+- Converting units (m/s to km/h) and conditional rendering in JSX
+- Deploying a React app with Vercel and setting environment variables
 
-### `npm run build`
+## Future Improvements
+- Show a loading message while fetching
+- Replace `alert()` with inline error messages
+- Add weather icons
+- Add a 5-day forecast
+- Detect the user's location with the Geolocation API
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Note
+## Security Note
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+The API key is loaded through an environment variable and is not committed to the repository. However, Create React App includes `REACT_APP_` variables in the browser bundle, so the key can still be viewed by users.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This approach is acceptable for a limited free-tier public API key, but private, paid, or sensitive API keys should be kept on a backend server.
