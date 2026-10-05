@@ -8,31 +8,38 @@ function App() {
 
   const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
 
-  const getweather = async () => {
-    try{
+ const getweather = async () => {
+  try {
     const response = await fetch(
-      `https://api.openweathermap.org/data/2.5/weather?q=${userCity}&appid=${API_KEY}`,
-    )
+      `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(userCity.trim())}&units=metric&appid=${API_KEY}`
+    );
     const data = await response.json();
-    setWeatherData(data)
+
+    if (data.cod !== 200) {
+      alert("City not found!");
+      return;
+    }
+
+    setWeatherData(data);
     localStorage.setItem("data", JSON.stringify(data));
-  } catch(error) {
-     console.log(error)
+  } catch (error) {
+    alert("Something went wrong. Check your connection.");
   }
-}
+};
 
   const handleClick = () => {
     getweather();
   }
 
-  useEffect(() => {
+    useEffect(() => {
     const savedWeather = localStorage.getItem("data")
 
     if(savedWeather){
       setWeatherData(JSON.parse(savedWeather));
     } else {
       getweather();
-    }    
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
 
@@ -44,21 +51,24 @@ function App() {
           placeholder="Enter your city"
           value={userCity}
           onChange={(e) => setUserCity(e.target.value)}
+           onKeyDown={(e) => {
+    if (e.key === "Enter") getweather();
+  }}
         />
         <button className="search" onClick={handleClick}>Search</button>
       </div>
 
       <div className="loading"></div>
 
-      <div className="details">
-        <p className="weather">{weatherData?.weather?.[0].main}</p>
-        <p className="temp">{Math.round(weatherData?.main.temp - 273.15)}°C</p>
-        <p className="city">{weatherData?.name}</p>
-
-        <p className="humidity">{weatherData?.main.humidity}% Humidity</p>
-
-        <p className="wind">{weatherData?.wind.speed} km/hr Wind-Speed</p>
-      </div>
+     {weatherData && (
+  <div className="details">
+    <p className="weather">{weatherData.weather[0].main}</p>
+    <p className="temp">{Math.round(weatherData.main.temp)}°C</p>
+    <p className="city">{weatherData.name}</p>
+    <p className="humidity">{weatherData.main.humidity}% Humidity</p>
+    <p className="wind">{Math.round(weatherData.wind.speed * 3.6)} km/h Wind Speed</p>
+  </div>
+)}
     </div>
   )
 }
